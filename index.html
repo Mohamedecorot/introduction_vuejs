@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css">
+    <title>Document</title>
+    <style>
+        .main.container{
+            padding-top: 50px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="ui inverted fixed menu">
+
+        <div class="header item">Tutoriel</div>
+
+    </div>
+
+    <div class="ui main container" id="app">
+        <div>exo 1</div><br>
+        <a :href="link">{{ message }}</a>
+        <div>exo 2</div><br>
+        <div class="ui success message" v-if="success">
+            <i class="close icon" @click="close"></i>
+            <p>Bravo votre enregistrement à marché</p>
+        </div>
+        <div class="ui error message" v-else>
+            <p>Echec, cela n'a pas fonctionné</p>
+        </div>
+        <span>exo 3</span><br>
+        <ul>
+            <li v-for="person in persons">{{ person }}</li>
+        </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
