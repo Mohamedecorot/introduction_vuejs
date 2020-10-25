@@ -1,16 +1,15 @@
-console.log("coucou")
-var app = new Vue({
+var vm = new Vue({
     el: '#app',
     data: {
-      message: 'Hello Vue!',
-      link: 'https://vuejs.org/v2/guide/',
-      success: true,
-      persons: ['Mohamed', 'Lionel', 'Eric', 'Jean', "Sarah"]
+      seconds : 0
     },
-    methods: {
-        close: function() {
-            this.message = "Fermé"
-            this.success = false
-        }
+    mounted: function () {
+        this.$interval = setInterval(() => {
+            console.log('Time')
+            this.seconds++
+        }, 1000)
+    },
+    destroyed: function () {
+        clearInterval(this.$interval)
     }
-  })
+})
