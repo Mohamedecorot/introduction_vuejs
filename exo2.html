@@ -18,27 +18,21 @@
     </div>
 
     <div class="ui main container" id="app">
-        <input type="text" v-model.lazy="message">
-        {{ message }}
-        <input type="text" @keyup.space="demo">
-
+        {{ message | capitalize('avant','après') }}
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script>
+        var capitalize = function (value, prefix, suffix) {
+            return prefix + value.toUpperCase() + suffix
+        }
+
         var vm = new Vue({
             el: '#app',
+            filters: {capitalize},
             data: {
-              message : 'Mohamed',
-            },
-            methods: {
-                demo: function () {
-                    console.log('demo')
-                },
-                demo2: function () {
-                    console.log('demo2')
-                }
-            }
+              message : 'Mohamed'
+            } 
         })
     </script>
 </body>

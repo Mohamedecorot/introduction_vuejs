@@ -18,29 +18,28 @@
     </div>
 
     <div class="ui main container" id="app">
-        <p @click="demo2">
-            <a href="https://github.com/" @click.prevent.stop="demo">demonstration</a>
-        </p>
+        {{ message | capitalize('avant','après') }}
+        {{ message | reverse }}
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script>
+        Vue.filter('capitalize', function (value, prefix, suffix) {
+            return prefix + value.toUpperCase() + suffix
+        })
+
+        Vue.filter('reverse', function (value) {
+            return value.split('').reverse().join('')
+        })
+
         var vm = new Vue({
             el: '#app',
             data: {
-              firstname : 'Mohamed',
-              lastname : 'DeCorot',
-              fullname: ''
-            },
-            methods: {
-                demo: function () {
-                    console.log('demo')
-                },
-                demo2: function () {
-                    console.log('demo2')
-                }
-            }
+              message : 'Mohamed'
+            } 
         })
     </script>
 </body>
 </html>
+
