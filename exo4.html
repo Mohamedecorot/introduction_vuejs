@@ -18,19 +18,25 @@
     </div>
 
     <div class="ui main container" id="app">
-        <p @click="demo2">
-            <a href="https://github.com/" @click.prevent.stop="demo">demonstration</a>
-        </p>
+        <input type="text" v-salut.a.b.c="message">
+        <input type="text" v-model="message">
+        {{ message }}
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script>
+        var salut = function (el, binding) {
+                el.value = binding.value
+                console.log('bind')
+            }
+
         var vm = new Vue({
             el: '#app',
+            directives: {
+                salut: salut
+            },
             data: {
-              firstname : 'Mohamed',
-              lastname : 'DeCorot',
-              fullname: ''
+              message : 'Mohamed',
             },
             methods: {
                 demo: function () {

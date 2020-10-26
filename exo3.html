@@ -18,25 +18,35 @@
     </div>
 
     <div class="ui main container" id="app">
-        <p>
-            Prénom : {{ firstname }} <br>
-            Nom : {{ lastname }} <br>
-            Nom complet : <input type="text" v-model="fullname">
-        </p>
+        <input type="text" v-salut.a.b.c="message">
+        <input type="text" v-model="message">
+        {{ message }}
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script>
+        Vue.directive('salut', {
+            bind: function (el, binding, vnode) {
+                console.log(el, binding)
+                el.value = binding.value
+                console.log('bind')
+            },
+            update: function (el, binding, vnode, oldvnode) {
+                console.log('update')
+            }
+
+        })
         var vm = new Vue({
             el: '#app',
             data: {
-              firstname : 'Mohamed',
-              lastname : 'DeCorot',
-              fullname: ''
+              message : 'Mohamed',
             },
-            watch: {
-                fullname: function (value) {
-                    console.log('watch', value)
+            methods: {
+                demo: function () {
+                    console.log('demo')
+                },
+                demo2: function () {
+                    console.log('demo2')
                 }
             }
         })
