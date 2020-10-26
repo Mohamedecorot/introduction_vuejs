@@ -18,18 +18,21 @@
     </div>
 
     <div class="ui main container" id="app">
-        {{ message | capitalize('avant','après') }}
+        <message type="error" :message="message"></message>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script>
-        var capitalize = function (value, prefix, suffix) {
-            return prefix + value.toUpperCase() + suffix
-        }
+        Vue.component('message', {
+            props: {
+                type: {type: String, default: 'success'},
+                message: String
+            },
+            template: `<div class="ui message" :class="type">{{message}}</div>`
+        })
 
         var vm = new Vue({
             el: '#app',
-            filters: {capitalize},
             data: {
               message : 'Mohamed'
             } 
@@ -37,3 +40,4 @@
     </script>
 </body>
 </html>
+

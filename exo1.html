@@ -18,19 +18,14 @@
     </div>
 
     <div class="ui main container" id="app">
-        {{ message | capitalize('avant','après') }}
-        {{ message | reverse }}
-
+        <message type="success" :message="message"></message>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script>
-        Vue.filter('capitalize', function (value, prefix, suffix) {
-            return prefix + value.toUpperCase() + suffix
-        })
-
-        Vue.filter('reverse', function (value) {
-            return value.split('').reverse().join('')
+        Vue.component('message', {
+            props: ['type', 'message'],
+            template: `<div class="ui message" :class="type">{{message}}</div>`
         })
 
         var vm = new Vue({
