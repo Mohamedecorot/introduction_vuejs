@@ -18,6 +18,14 @@
     </div>
 
     <div class="ui main container" id="app">
+        <form-user v-model="user">
+            <div class="header">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum facere quasi soluta nulla voluptates. Porro ad soluta, tempora deserunt expedita sint itaque mollitia labore inventore architecto ullam ducimus qui veritatis?</div>
+            <div class="footer">ipsum dolor sit amet consectetur adipisicing elit. Accusamus possimus odit porro at laborum. Rem nisi placeat officiis fugit sed. Modi quos vero nisi laudantium minima natus soluta similique cupiditate!</div>
+        </form-user>
+        <pre>
+            {{ user }}
+        </pre>
+        <p>&nbsp;</p>
         <message type="error" :message="message" header="Attention" v-if="alert" @close="hideAlert"></message>
         <button @click="showAlert" v-if="!alert">Alerter</button>
         <counter></counter>
@@ -26,6 +34,36 @@
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script>
+        var formUser = {
+            props: {
+                value: Object
+            },
+            data () {
+                return {
+                    user: JSON.parse(JSON.stringify(this.value))
+                }
+            },
+            methods: {
+                save () {
+                    this.$emit('input', this.user)
+                }
+            },
+            template: `
+            <form class="ui form" @submit.prevent="save">
+                <p><slot name="header"></slot></p>
+                <div class="field">
+                    <label for="">Prénom</label>
+                    <input type="text" v-model="user.firstname">
+                </div>
+                <div class="field">
+                    <label for="">Nom</label>
+                    <input type="text" v-model="user.lastname">
+                </div>
+                <button class="ui button" type="submit">Envoyer</button>
+                <p><slot name="footer"></slot></p>
+            </form>   
+            `
+        }
         var message = {
             props: {
                 type: {type: String, default: 'success'},
@@ -68,10 +106,14 @@
 
         var vm = new Vue({
             el: '#app',
-            components: {message, counter},
+            components: {message, counter, formUser},
             data: {
               message : 'Mohamed',
-              alert: false
+              alert: false,
+              user: {
+                  firstname: 'Mohamed',
+                  lastname: 'DeCorot'
+              }
             },
             methods: {
                 showAlert () {
