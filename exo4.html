@@ -18,35 +18,68 @@
     </div>
 
     <div class="ui main container" id="app">
-        <input type="text" v-salut.a.b.c="message">
-        <input type="text" v-model="message">
-        {{ message }}
+        <message type="error" :message="message" header="Attention" v-if="alert"></message>
+        <button @click="showAlert" v-if="!alert">Alerter</button>
+        <counter></counter>
+        <counter :start="3"></counter>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script>
-        var salut = function (el, binding) {
-                el.value = binding.value
-                console.log('bind')
+        var message = {
+            props: {
+                type: {type: String, default: 'success'},
+                message: String,
+                header: String
+            },
+            template: `<div class="ui message" :class="type">
+                        <i class="close icon" @click="close"></i>
+                        <div class="header">{{ header }}</div>
+                        {{message}}
+                       </div>`,
+            methods: {
+                close () {
+                    this.$parent.$data.alert = false
+                }
             }
+        }
+
+        var counter = {
+            data: function () {
+                return {
+                    count: 0
+                }
+            }, 
+            props: {
+                start: {type: Number, default: 0}
+            },
+            computed: {
+                total: function () {
+                    return this.start + this.count
+                }
+            },
+            methods: {
+                increment: function () {
+                    this.count ++
+                }
+            },
+            template: `<button @click="increment">{{ total }}</button>`
+        }
 
         var vm = new Vue({
             el: '#app',
-            directives: {
-                salut: salut
-            },
+            components: {message, counter},
             data: {
               message : 'Mohamed',
+              alert: false
             },
             methods: {
-                demo: function () {
-                    console.log('demo')
-                },
-                demo2: function () {
-                    console.log('demo2')
+                showAlert () {
+                    this.alert = true
                 }
             }
         })
     </script>
 </body>
 </html>
+
