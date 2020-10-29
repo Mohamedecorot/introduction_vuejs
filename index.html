@@ -14,17 +14,68 @@
 </head>
 <body>
     <div class="ui inverted fixed menu">
-
         <div class="header item">Tutoriel</div>
-
     </div>
 
     <div class="ui main container" id="app">
-        <div class="ui main container">
-            {{ seconds }}
-        </div>
+        <counter></counter>
+        <notifications></notifications>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <script src="js/app.js"></script>
+    <script>
+        class notificationsStore {
+
+            constructor () {
+                this.state = {
+                    count: 0
+                }
+            }
+            increment () {
+                this.state.count++
+            }            
+            decrement () {
+                this.state.count--
+            }
+        }
+
+        var notification_Store = new notificationsStore()
+        var Counter = {
+            data: function () {
+                return {
+                    state: notification_Store.state
+                }
+            },
+            computed: {
+                count: function () { return this.state.count }
+            },
+            methods: {
+                increment: function () { 
+                    notification_Store.increment()
+                }
+            },
+            template: `<button @click="increment">{{ count }}</button>`
+        }
+
+        var Notifications = {
+            components: { Counter },
+            methods: {
+                addNotification: function() {
+                    notification_Store.increment()
+                }
+            },
+            template: `<div>
+                            <counter></counter>
+                            <button @click="addNotification">Incrémenter</button>
+                       </div>`
+        }
+
+        var vm = new Vue({
+            el: '#app',
+            data: {  },
+            components: {Notifications, Counter}
+        })
+    </script>
 </body>
 </html>
+
