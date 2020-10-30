@@ -1,16 +1,14 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <router-view/>
-    <counter></counter>
+    <alert></alert>
   </div>
 </template>
 
 <script>
-import counter from './Counter.vue'
-
+import alert from './alert.vue'
 export default {
-  components: { counter },
+  components: { alert },
   name: 'App'
 }
 </script>
