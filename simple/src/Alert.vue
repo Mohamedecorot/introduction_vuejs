@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="toggle">Toggle</button>
-    <transition name="bounce" appear>
+    <transition :css="false" @enter="enter" @leave="leave">
         <div class="ui message success" v-if="visable">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit recusandae
         nesciunt quia illo, omnis molestias ratione ullam ipsam blanditiis, totam
@@ -11,7 +11,18 @@
   </div>
 </template>
 <script>
+var slides = {
+    methods: {
+        enter: function (el, done) {
+            $(el).hide().slideDown(500, done)
+        },
+        leave: function (el, done) {
+            $(el).show().slideUp(500, done)
+        },
+    }
+}
 export default {
+    mixins: [slides],
     data() {
         return {
             visable: true,
